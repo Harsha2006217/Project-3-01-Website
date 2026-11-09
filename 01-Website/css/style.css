@@ -1,0 +1,620 @@
+/* ==========================================================================
+   TribeLink projectsite — css/style.css
+   Harsha Kanaparthi · Project 3 · HBO-ICT Open-ICT semester 1
+   ==========================================================================
+   Veertien genummerde blokken. Zoek op BLOK om te navigeren.
+     BLOK 1  Variabelen en reset
+     BLOK 2  Basis en typografie
+     BLOK 3  Hulpklassen en toegankelijkheid
+     BLOK 4  Header, merk en menu
+     BLOK 5  Hero en kerncijfers
+     BLOK 6  Secties en kaarten
+     BLOK 7  Knoppen en chips
+     BLOK 8  Demo-kader
+     BLOK 9  De pixel-lobby
+     BLOK 10 Het profiel in lagen
+     BLOK 11 Tabellen
+     BLOK 12 Tijdlijn, uitklapblokken en woordenlijst
+     BLOK 13 Footer
+     BLOK 14 Breekpunten en leesmodus
+   ========================================================================== */
+
+/* ---------- BLOK 1 — Variabelen en reset ----------
+   Alle kleuren staan hier op één plek. Daardoor kan ik ze nagerekend
+   controleren op contrast en hoef ik bij een wijziging niet door het hele
+   bestand te zoeken. De waarden zijn zo gekozen dat elke tekstkleur op zijn
+   achtergrond minstens 4,5:1 haalt (WCAG 2.2, SC 1.4.3 niveau AA). */
+:root {
+  --nacht: #0b1220;
+  --paneel: #121c30;
+  --paneel-2: #18243c;
+  --rand: #2c3b57;
+  --tekst: #eef3fb;
+  --tekst-zacht: #b9c6dc;
+  --blauw: #6cb8ff;
+  --blauw-sterk: #2a72c4;
+  --groen: #6fe3b0;
+  --geel: #ffd479;
+  --roze: #ff9fb2;
+  --paars: #c4a8ff;
+  --straal: 14px;
+  --schaduw: 0 10px 30px rgba(0, 0, 0, .35);
+  --header-hoogte: 4.5rem;
+  --maxbreedte: 74rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ---------- BLOK 2 — Basis en typografie ----------
+   Ik gebruik een systeemlettertype. Er wordt dus geen lettertype van een
+   externe server geladen: de site werkt offline en mijn IP-adres gaat niet
+   naar Google. Dat is een bewuste privacykeuze. */
+html {
+  scroll-behavior: smooth;
+  /* Zorgt dat een kopje niet onder de sticky header verdwijnt als je er
+     via het menu naartoe springt. De hoogte wordt door JavaScript gemeten. */
+  scroll-padding-top: calc(var(--header-hoogte) + 1rem);
+}
+
+body {
+  margin: 0;
+  background: var(--nacht);
+  color: var(--tekst);
+  font-family: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  /* Voorkomt dat één lang woord een horizontale scrollbalk veroorzaakt. */
+  overflow-wrap: break-word;
+}
+
+h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 .6rem; }
+h1 { font-size: clamp(1.7rem, 4.5vw, 2.7rem); }
+h2 { font-size: clamp(1.35rem, 3vw, 1.9rem); }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; }
+p { margin: 0 0 1rem; }
+
+a { color: var(--blauw); text-underline-offset: 3px; }
+a:hover { color: var(--tekst); }
+
+blockquote {
+  margin: 0 0 1rem;
+  padding: .8rem 1rem;
+  border-left: 4px solid var(--blauw);
+  background: var(--paneel-2);
+  border-radius: 0 var(--straal) var(--straal) 0;
+  font-style: italic;
+  color: var(--tekst);
+}
+
+code {
+  background: var(--paneel-2);
+  padding: .1rem .35rem;
+  border-radius: 5px;
+  font-size: .92em;
+}
+
+/* ---------- BLOK 3 — Hulpklassen en toegankelijkheid ---------- */
+
+/* Deze klasse verbergt iets voor het oog maar niet voor een schermlezer.
+   Ik gebruik clip-path in plaats van display:none, omdat display:none de
+   tekst ook voor een schermlezer laat verdwijnen. */
+.altijd-verborgen {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skiplink {
+  position: absolute;
+  left: .5rem;
+  top: -4rem;
+  z-index: 60;
+  background: var(--blauw-sterk);
+  color: #fff;
+  padding: .7rem 1rem;
+  border-radius: 0 0 var(--straal) var(--straal);
+  text-decoration: none;
+  transition: top .15s ease;
+}
+.skiplink:focus { top: 0; }
+
+/* Een duidelijke focusrand op alles wat focus kan krijgen. Zonder dit ziet
+   een toetsenbordgebruiker niet waar hij is. */
+:focus-visible {
+  outline: 3px solid var(--geel);
+  outline-offset: 3px;
+}
+
+.wrap {
+  max-width: var(--maxbreedte);
+  margin: 0 auto;
+  padding: 0 1.2rem;
+}
+
+.label {
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  font-size: .75rem;
+  font-weight: 700;
+  color: var(--blauw);
+  margin: 0 0 .5rem;
+}
+
+.noot { font-size: .9rem; color: var(--tekst-zacht); }
+.lead { font-size: 1.1rem; color: var(--tekst); max-width: 46rem; }
+.lead-klein { font-size: .95rem; color: var(--tekst-zacht); }
+
+.netjes { margin: 0 0 1rem; padding-left: 1.2rem; }
+.netjes li { margin-bottom: .45rem; }
+
+/* ---------- BLOK 4 — Header, merk en menu ---------- */
+.kop {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(11, 18, 32, .94);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--rand);
+}
+
+.kop-binnen {
+  max-width: var(--maxbreedte);
+  margin: 0 auto;
+  padding: .7rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  flex-wrap: wrap;
+}
+
+.merk {
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+  text-decoration: none;
+  color: var(--tekst);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.menu { list-style: none; display: flex; flex-wrap: wrap; gap: .2rem; margin: 0; padding: 0; }
+.menu a {
+  display: block;
+  padding: .5rem .65rem;
+  border-radius: 9px;
+  text-decoration: none;
+  color: var(--tekst-zacht);
+  font-size: .93rem;
+}
+.menu a:hover { background: var(--paneel-2); color: var(--tekst); }
+
+#hoofdmenu { margin-left: auto; }
+
+.menuknop {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  background: var(--paneel-2);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  padding: .55rem .8rem;
+  font: inherit;
+  cursor: pointer;
+}
+.menu-streep, .menu-streep::before, .menu-streep::after {
+  display: block;
+  width: 18px; height: 2px;
+  background: var(--tekst);
+  position: relative;
+}
+.menu-streep::before, .menu-streep::after { content: ""; position: absolute; left: 0; }
+.menu-streep::before { top: -6px; }
+.menu-streep::after { top: 6px; }
+
+.leesknop {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  background: var(--paneel-2);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  padding: .55rem .8rem;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.leesknop[aria-pressed="true"] { background: var(--blauw-sterk); border-color: var(--blauw); }
+
+/* ---------- BLOK 5 — Hero en kerncijfers ---------- */
+.hero {
+  padding: 3.5rem 0 3rem;
+  background:
+    radial-gradient(1000px 420px at 12% -10%, rgba(47, 127, 214, .28), transparent 65%),
+    radial-gradient(760px 380px at 88% 0%, rgba(196, 168, 255, .18), transparent 60%);
+  border-bottom: 1px solid var(--rand);
+}
+
+.kerncijfers {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(11rem, 100%), 1fr));
+  gap: .9rem;
+  margin: 1.8rem 0;
+  padding: 0;
+}
+.kerncijfers li {
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  padding: 1rem;
+}
+.cijfer { display: block; font-size: 1.9rem; font-weight: 800; color: var(--blauw); }
+.cijfer-label { display: block; font-size: .88rem; color: var(--tekst-zacht); }
+
+/* ---------- BLOK 6 — Secties en kaarten ---------- */
+.sectie { padding: 3rem 0; border-bottom: 1px solid var(--rand); }
+.sectie-alt { background: var(--paneel); }
+
+/* auto-fit laat de browser zelf beslissen hoeveel kolommen er passen.
+   Daardoor hoef ik niet per schermbreedte te zeggen hoeveel kaarten er
+   naast elkaar staan, en werkt het ook bij inzoomen. */
+.kaarten {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.kaarten-twee { grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr)); }
+
+.kaart {
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  padding: 1.2rem;
+}
+.sectie-alt .kaart { background: var(--paneel-2); }
+.kaart h3 { color: var(--tekst); }
+.kaart.verborgen { display: none; }
+
+.profiellijst { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .4rem .8rem; }
+.profiellijst dt { font-weight: 700; color: var(--blauw); font-size: .88rem; }
+.profiellijst dd { margin: 0; font-size: .95rem; }
+
+/* ---------- BLOK 7 — Knoppen en chips ---------- */
+.knoppenrij { display: flex; flex-wrap: wrap; gap: .7rem; }
+
+.knop {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .4rem;
+  background: var(--paneel-2);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  border-radius: 10px;
+  padding: .7rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+.knop:hover { border-color: var(--blauw); color: var(--tekst); }
+.knop-primair { background: var(--blauw-sterk); border-color: var(--blauw); color: #fff; }
+.knop:disabled { opacity: .5; cursor: not-allowed; }
+
+.filterbalk { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.2rem 0; }
+.chip {
+  background: var(--paneel-2);
+  color: var(--tekst-zacht);
+  border: 1px solid var(--rand);
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--blauw-sterk); border-color: var(--blauw); color: #fff; }
+
+/* ---------- BLOK 8 — Demo-kader ---------- */
+.demo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: 1.5rem;
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  padding: 1.4rem;
+  margin: 1.5rem 0;
+  box-shadow: var(--schaduw);
+}
+.sectie-alt .demo { background: var(--paneel-2); }
+.demo-uitleg h3 { color: var(--blauw); }
+
+/* ---------- BLOK 9 — De pixel-lobby ----------
+   Het veld is een CSS-grid van 14 kolommen. De tegels worden door
+   JavaScript aangemaakt. Ik gebruik aspect-ratio zodat het veld op elk
+   scherm zijn verhouding houdt zonder dat ik hoogtes hoef te rekenen. */
+.lobbyveld {
+  display: grid;
+  grid-template-columns: repeat(14, 1fr);
+  gap: 2px;
+  background: #0d1a2b;
+  border: 2px solid var(--rand);
+  border-radius: 10px;
+  padding: 4px;
+  aspect-ratio: 14 / 9;
+  width: 100%;
+}
+
+.tegel {
+  background: #16263d;
+  border-radius: 2px;
+  position: relative;
+  cursor: pointer;
+  border: 0;
+  padding: 0;
+  font: inherit;
+}
+/* Om en om een iets andere tint: zo zie je de tegels zonder rasterlijnen. */
+.tegel.alt { background: #1a2c47; }
+.tegel.pad { background: #24405f; }
+.tegel:hover { outline: 2px solid var(--blauw); outline-offset: -2px; }
+
+.poppetje {
+  position: absolute;
+  inset: 8%;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(.5rem, 1.4vw, .8rem);
+  font-weight: 800;
+  color: #08111d;
+}
+.poppetje.ik { background: var(--geel); box-shadow: 0 0 0 2px #fff inset; }
+.poppetje.npc { background: var(--groen); }
+.poppetje.npc.tweede { background: var(--roze); }
+.poppetje.npc.derde { background: var(--paars); }
+.poppetje.npc.vierde { background: var(--blauw); }
+
+.lobby-knoppen { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; margin-top: .9rem; }
+.pijltjes {
+  display: grid;
+  grid-template-columns: repeat(3, 2.2rem);
+  grid-template-rows: repeat(2, 2.2rem);
+  gap: 3px;
+}
+.pijl {
+  background: var(--paneel-2);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  border-radius: 7px;
+  height: 2.2rem;
+  font-size: 1rem;
+  cursor: pointer;
+}
+/* Elke knop krijgt een vaste plek in het raster van 3 bij 2. Zonder deze
+   expliciete plaatsing zette de browser ze achter elkaar en stond de
+   helft van de pijlen op de verkeerde rij. */
+.pijl-omhoog { grid-area: 1 / 2; }
+.pijl[data-stap="links"]  { grid-area: 2 / 1; }
+.pijl[data-stap="omlaag"] { grid-area: 2 / 2; }
+.pijl[data-stap="rechts"] { grid-area: 2 / 3; }
+
+.lobby-melding {
+  margin: .9rem 0 .5rem;
+  padding: .7rem .9rem;
+  background: var(--paneel-2);
+  border-left: 4px solid var(--blauw);
+  border-radius: 0 8px 8px 0;
+  font-size: .95rem;
+  min-height: 3rem;
+}
+
+.lobby-log { margin-top: .8rem; }
+.lobby-log h4 { color: var(--tekst-zacht); font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; }
+.loglijst {
+  margin: 0;
+  padding-left: 1.3rem;
+  max-height: 9rem;
+  overflow-y: auto;
+  font-size: .88rem;
+  color: var(--tekst-zacht);
+}
+.loglijst li { margin-bottom: .3rem; }
+
+/* ---------- BLOK 10 — Het profiel in lagen ---------- */
+.privacy-knoppen { display: flex; flex-wrap: wrap; gap: .6rem; }
+.privacy-melding {
+  margin: 1rem 0;
+  padding: .8rem 1rem;
+  background: var(--paneel-2);
+  border-left: 4px solid var(--groen);
+  border-radius: 0 8px 8px 0;
+  min-height: 3.5rem;
+}
+
+.profielkaart {
+  background: var(--nacht);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  padding: 1.1rem;
+}
+.profielkop { display: flex; align-items: center; gap: .8rem; margin-bottom: 1rem; }
+.avatar {
+  width: 3rem; height: 3rem;
+  flex: 0 0 3rem;
+  border-radius: 10px;
+  background: var(--blauw-sterk);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800;
+}
+.profielnaam { margin: 0; font-weight: 700; font-size: 1.05rem; }
+.profielsub { margin: 0; font-size: .85rem; color: var(--tekst-zacht); }
+
+.profielvelden { list-style: none; margin: 0; padding: 0; display: grid; gap: .5rem; }
+.profielvelden li {
+  display: flex;
+  justify-content: space-between;
+  gap: .8rem;
+  padding: .55rem .7rem;
+  border-radius: 8px;
+  background: var(--paneel);
+  font-size: .92rem;
+}
+.profielvelden li.gesloten { color: var(--tekst-zacht); font-style: italic; }
+.veldslot { font-size: .78rem; font-weight: 700; white-space: nowrap; }
+.veldslot.open { color: var(--groen); }
+.veldslot.dicht { color: var(--geel); }
+
+/* ---------- BLOK 11 — Tabellen ---------- */
+.tabelknoppen { display: flex; flex-wrap: wrap; gap: 1rem; margin: 1.2rem 0 .6rem; }
+.veld { display: flex; flex-direction: column; gap: .3rem; min-width: 0; flex: 1 1 14rem; }
+.veld-breed { max-width: 26rem; margin-bottom: .6rem; }
+.veld label { font-size: .85rem; font-weight: 600; color: var(--tekst-zacht); }
+.veld input, .veld select {
+  background: var(--nacht);
+  color: var(--tekst);
+  border: 1px solid var(--rand);
+  border-radius: 9px;
+  padding: .6rem .7rem;
+  font: inherit;
+  width: 100%;
+}
+.telregel { font-size: .88rem; color: var(--tekst-zacht); margin: .4rem 0 .8rem; }
+
+/* De tabel mag breed zijn; de regio eromheen scrollt. Zo blijft de pagina
+   zelf op elke breedte binnen beeld, ook bij 400% zoom. */
+.tabelwrap { overflow-x: auto; border: 1px solid var(--rand); border-radius: var(--straal); }
+.tabel-data { width: 100%; border-collapse: collapse; min-width: 34rem; font-size: .92rem; }
+/* Deze smallere variant heeft geen minimumbreedte nodig en past dus ook
+   op 320px zonder scrollen. */
+.tabel-smal { min-width: 0; }
+.tabel-data caption { text-align: left; padding: .8rem; color: var(--tekst-zacht); font-size: .85rem; }
+.tabel-data th, .tabel-data td { padding: .7rem .8rem; text-align: left; border-top: 1px solid var(--rand); vertical-align: top; }
+.tabel-data thead th { background: var(--paneel-2); border-top: 0; font-size: .85rem; }
+.tabel-data tbody th { font-weight: 600; white-space: nowrap; }
+
+.stand { font-size: .78rem; font-weight: 700; padding: .2rem .55rem; border-radius: 999px; white-space: nowrap; }
+.stand.af { background: rgba(111, 227, 176, .16); color: var(--groen); }
+.stand.terug { background: rgba(255, 212, 121, .16); color: var(--geel); }
+
+/* ---------- BLOK 12 — Tijdlijn, uitklapblokken en woordenlijst ---------- */
+.tijdlijn { list-style: none; counter-reset: stap; margin: 1.5rem 0; padding: 0; display: grid; gap: .9rem; }
+.tijdlijn li {
+  counter-increment: stap;
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-left: 4px solid var(--blauw);
+  border-radius: 0 var(--straal) var(--straal) 0;
+  padding: 1.1rem 1.1rem 1.1rem 3.2rem;
+  position: relative;
+}
+.tijdlijn li::before {
+  content: counter(stap);
+  position: absolute;
+  left: .9rem; top: 1.1rem;
+  width: 1.6rem; height: 1.6rem;
+  border-radius: 50%;
+  background: var(--blauw-sterk);
+  color: #fff;
+  font-weight: 700; font-size: .85rem;
+  display: flex; align-items: center; justify-content: center;
+}
+
+/* details/summary is standaard HTML. De browser regelt openen met Enter of
+   Spatie en een schermlezer kondigt aan of het blok open is. Ik hoef dus
+   geen eigen accordeon te bouwen. */
+.uitklap {
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  margin: 1rem 0;
+}
+.sectie-alt .uitklap { background: var(--paneel-2); }
+.uitklap > summary {
+  cursor: pointer;
+  padding: .9rem 1.1rem;
+  font-weight: 600;
+  list-style: none;
+}
+.uitklap > summary::-webkit-details-marker { display: none; }
+.uitklap > summary::before { content: "▸ "; color: var(--blauw); }
+.uitklap[open] > summary::before { content: "▾ "; }
+.uitklap-inhoud { padding: 0 1.1rem 1rem; }
+
+.termenlijst { list-style: none; margin: 1rem 0 0; padding: 0; display: grid; gap: .7rem; }
+.term {
+  background: var(--paneel);
+  border: 1px solid var(--rand);
+  border-radius: var(--straal);
+  padding: .9rem 1.1rem;
+}
+.term dt { font-weight: 700; color: var(--blauw); margin-bottom: .25rem; }
+.term dd { margin: 0; font-size: .95rem; color: var(--tekst); }
+.term.verborgen { display: none; }
+
+/* ---------- BLOK 13 — Footer ---------- */
+.voet { padding: 2rem 0 3rem; background: var(--paneel); }
+.voet p { margin: 0 0 .4rem; font-size: .92rem; color: var(--tekst-zacht); }
+.voet strong { color: var(--tekst); }
+
+/* ---------- BLOK 14 — Breekpunten en leesmodus ----------
+   Alle breekpunten staan in em. Daardoor schalen ze mee met de
+   tekstgrootte: wie zijn lettertype vergroot, krijgt eerder de smalle
+   indeling. Dat is precies wat WCAG 2.2 SC 1.4.10 (Reflow) vraagt. */
+
+@media (max-width: 60em) {
+  .menuknop { display: flex; }
+  #hoofdmenu { flex-basis: 100%; margin-left: 0; order: 3; display: none; }
+  #hoofdmenu.open { display: block; }
+  .menu { flex-direction: column; }
+  .menu a { padding: .7rem .6rem; }
+  .leesknop { margin-left: auto; }
+}
+
+@media (max-width: 52em) {
+  .kerncijfers { grid-template-columns: 1fr; }
+  .demo { grid-template-columns: 1fr; }
+  .tabelknoppen { flex-direction: column; }
+  .profiellijst { grid-template-columns: 1fr; gap: .1rem .5rem; }
+  .profiellijst dd { margin-bottom: .5rem; }
+}
+
+@media (max-width: 30em) {
+  /* De merk-tekst gaat visueel weg, maar blijft staan voor een schermlezer.
+     Met display:none zou de merklink geen toegankelijke naam meer hebben;
+     die fout maakte ik in Project 2 en axe vond hem. */
+  .merk-tekst {
+    position: absolute;
+    width: 1px; height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .knoppenrij .knop, .privacy-knoppen .knop, .lobby-knoppen .knop { flex: 1 1 100%; }
+  .hero { padding: 2.2rem 0 2rem; }
+  .sectie { padding: 2rem 0; }
+  .wrap { padding: 0 .9rem; }
+  .profielvelden li { flex-direction: column; gap: .2rem; }
+}
+
+/* Leesmodus: grotere tekst, ruimere regels en geen achtergrondverlopen.
+   Bedoeld voor wie moeite heeft met lezen of snel afgeleid is. */
+body.leesmodus { font-size: 1.2rem; line-height: 1.85; }
+body.leesmodus .hero { background: var(--paneel); }
+body.leesmodus .lead, body.leesmodus p { max-width: 42rem; }
+body.leesmodus .kaart, body.leesmodus .term { border-width: 2px; }
+
+/* Wie in zijn systeem "minder beweging" heeft aanstaan, krijgt geen
+   vloeiend scrollen en geen overgangen. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { transition: none !important; animation: none !important; }
+}

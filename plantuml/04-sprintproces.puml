@@ -1,0 +1,43 @@
+@startuml
+' ============================================================================
+' Het sprintproces zoals wij het in Project 3 doorlopen hebben.
+' Data uit onze eigen Sprint Review (15-10-2026) en retro (05-11-2026).
+' ============================================================================
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #2A72C4
+skinparam ActivityBackgroundColor #EEF3FA
+skinparam ActivityBorderColor #2A72C4
+title Project 3 — van designsprint tot Expo
+
+|Designsprint|
+start
+:Opdracht doorgronden met de squad;
+:Vragenlijst maken + interviews afnemen\n7 studenten, geen coach of mentor;
+:Drie persona's opstellen;
+:Brainwriting met post-its\n3-5 ideeen per persoon, doorschuiven;
+:Twee low-fidelity prototypes op papier;
+:Pitchen, nog niet kiezen;
+:Keuze na feedback op de pitches;
+:User flow + wireframes van het gekozen concept;
+
+|Sprint 1|
+:Product backlog met user stories (MoSCoW);
+:Sprintplanning\nsprintdoel: profiel aanmaken + contact leggen;
+:Bouwen\nfeature branch -> dev -> review -> merge;
+:Sprint Review 15-10-2026\n10 van 12 stories af;
+note right
+  Twee stories teruggezet:
+  Open brief en Feed Pagina.
+  Voorkant klaar, backend niet.
+end note
+:Feedback: meer focus op het hotel;
+
+|Sprint 2|
+:Backlog refinement\nvolgorde omgedraaid naar samen spelen;
+:Bouwen\nlobby wordt startpagina, minigames erbij;
+:Expo 05-11-2026;
+:Retrospective 05-11-2026\nwat ging goed / geleerd / kan beter;
+:Actiepunten: een story is pas af\nals frontend en backend af zijn;
+stop
+@enduml

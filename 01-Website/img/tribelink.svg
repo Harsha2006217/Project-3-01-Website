@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="TribeLink">
+  <!-- Twee poppetjes met een verbindingsstreep ertussen. Met de hand gemaakt
+       uit rechthoeken, zodat het past bij de pixelstijl van de lobby. -->
+  <rect width="32" height="32" rx="7" fill="#122036"/>
+  <rect x="5" y="8" width="7" height="7" rx="1.5" fill="#6cb8ff"/>
+  <rect x="4" y="16" width="9" height="9" rx="1.5" fill="#2f7fd6"/>
+  <rect x="20" y="8" width="7" height="7" rx="1.5" fill="#ffd479"/>
+  <rect x="19" y="16" width="9" height="9" rx="1.5" fill="#e0a93c"/>
+  <rect x="13" y="18" width="6" height="3" rx="1.5" fill="#6fe3b0"/>
+</svg>

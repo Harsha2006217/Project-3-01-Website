@@ -1,0 +1,41 @@
+@startuml
+' ============================================================================
+' TribeLink — toestandsdiagram van het profiel in lagen
+' Dit is mijn eigen ontwerpkeuze. Renderen met PlantUML.
+' ============================================================================
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam StateBorderColor #2A72C4
+skinparam StateBackgroundColor #EEF3FA
+title Profiel in lagen — alleen wederkerige vrijgave opent laag 3
+
+[*] --> Laag1 : account aangemaakt
+
+state "Laag 1 — anonier" as Laag1 {
+  state "Zichtbaar: gebruikersnaam, poppetje, tribe" as z1
+}
+state "Laag 2 — kennismaking" as Laag2 {
+  state "Zichtbaar: + bio en interesses" as z2
+}
+state "Laag 3 — vriend" as Laag3 {
+  state "Zichtbaar: + echte naam en contactgegevens" as z3
+}
+state "Wacht op de ander" as Wacht
+
+Laag1 --> Laag2 : IRL ontmoet\nbeiden voeren de code in
+Laag2 --> Wacht : ik geef laag 3 vrij
+Wacht --> Laag3 : de ander geeft ook alles vrij
+Wacht --> Wacht : de ander geeft nog niets vrij\n(er verandert niets)
+Laag3 --> [*]
+
+note right of Wacht
+  Dit is de kern van de keuze.
+  Een vrijgave van een kant
+  verandert de zichtbaarheid niet.
+end note
+note right of Laag1
+  Waarden van dichte velden staan
+  niet in de HTML. Er valt dus
+  niets uit te lezen.
+end note
+@enduml

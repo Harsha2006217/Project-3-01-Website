@@ -1,0 +1,81 @@
+@startuml
+' ============================================================================
+' TribeLink — volledige user flow
+' Project 3, Harsha Kanaparthi · HBO-ICT Open-ICT semester 1
+' Gebaseerd op User flow.pdf van onze squad (15 pagina's).
+' Renderen: java -jar plantuml.jar -tpng 01-userflow-tribelink.puml
+' ============================================================================
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam ArrowColor #2A72C4
+skinparam ActivityBorderColor #2A72C4
+skinparam ActivityBackgroundColor #EEF3FA
+skinparam ActivityDiamondBackgroundColor #E4F6EC
+skinparam ActivityDiamondBorderColor #2E8B62
+title TribeLink — van QR-code tot officiele vriendschap
+
+start
+:Start QR-landing;
+if (Heeft een account?) then (nee)
+  :Registreren\nnaam, gebruikersnaam, HU-mail;
+  :HU-mail verifieren\ndomein student.hu.nl + 6 cijfers;
+  :Wachtwoord instellen\n12+ tekens, gehasht opgeslagen;
+  :Onboarding\nprofielfoto, banner, bio (optioneel);
+  :Poppetje maken;
+else (ja)
+  :Inloggen\ngebruikersnaam + wachtwoord;
+  if (Wachtwoord vergeten?) then (ja)
+    :Resetlink via e-mail;
+    :Opnieuw inloggen;
+  else (nee)
+  endif
+endif
+:Home / lobby;
+
+partition "Ontmoeten: vier ingangen" {
+  split
+    :Random chat\nkoppeling met iemand online;
+  split again
+    :Open brief\niemand anders kiest jouw brief;
+  split again
+    :Lobby\nrondlopen en een spel voorstellen;
+  split again
+    :Poster\nQR-code als PDF;
+  end split
+}
+
+if (Elkaar bewaren?) then (nee)
+  :Chat verlaten\nterug naar Ontmoeten;
+  stop
+else (ja)
+  :Bewaard contact\nchat wordt DM;
+endif
+
+:Beter leren kennen\nIRL ontmoeten, unieke codes uitwisselen;
+:Profiel delen\nper onderdeel kiezen wat de ander ziet;
+
+if (Alles door beiden gedeeld?) then (nee)
+  :Deels zichtbaar\nwachten op de ander;
+  stop
+else (ja)
+  :Officiele vriendschap\nvolledig profiel + contactgegevens;
+endif
+
+partition "Posts en events" {
+  split
+    :Post maken\ntekst + optioneel plaatje;
+  split again
+    :Event maken\n+ datum, tijd, locatie;
+  end split
+  :Zichtbaarheid kiezen\npubliek of friends only;
+  split
+    :Publieke feed;
+  split again
+    :Profiel;
+  split again
+    :Vriendenfeed;
+  end split
+}
+:Reageren en aanmelden;
+stop
+@enduml

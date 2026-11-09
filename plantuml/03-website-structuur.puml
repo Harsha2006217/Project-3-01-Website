@@ -1,0 +1,50 @@
+@startuml
+' ============================================================================
+' Welk JavaScript-blok welke sectie van de projectsite aanstuurt.
+' ============================================================================
+skinparam backgroundColor #FFFFFF
+skinparam defaultFontName DejaVu Sans
+skinparam componentBorderColor #2A72C4
+skinparam componentBackgroundColor #EEF3FA
+skinparam ArrowColor #5A6B85
+title TribeLink projectsite — structuur van de code
+
+package "01-Website" {
+  [index.html\n12 HTML-blokken] as HTML
+  [css/style.css\n14 CSS-blokken] as CSS
+  [js/script.js\n9 JS-blokken] as JS
+}
+
+package "Blokken in script.js" {
+  [B1 Gegevens\nSTORIES + TERMEN] as B1
+  [B2 Hoofdmenu] as B2
+  [B3 Leesmodus] as B3
+  [B4 Headerhoogte] as B4
+  [B5 Lobby-demo] as B5
+  [B6 Filter manieren] as B6
+  [B7 Profiel in lagen] as B7
+  [B8 Tabel stories] as B8
+  [B9 Woordenlijst] as B9
+}
+
+HTML --> CSS
+HTML --> JS
+JS --> B1
+JS --> B2
+JS --> B3
+JS --> B4
+JS --> B5
+JS --> B6
+JS --> B7
+JS --> B8
+JS --> B9
+B1 --> B8 : levert 12 stories
+B1 --> B9 : levert 14 termen
+B2 --> B4 : meet opnieuw na uitklappen
+B3 --> B4 : meet opnieuw na tekstgroei
+B5 ..> HTML : veld #lobbyveld
+B6 ..> HTML : kaarten .manier
+B7 ..> HTML : #profielvelden
+B8 ..> HTML : #storyrijen
+B9 ..> HTML : #termenlijst
+@enduml

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<!-- TribeLink projectsite · Harsha Kanaparthi · Project 3 · Open-ICT S1 -->
+<html lang="nl">
+<head>
+  <!-- BLOK H1 — Kop en meta ============================================== -->
+  <meta charset="utf-8">
+
+<!--
+  ============================================================================
+  TribeLink — projectsite van Harsha Kanaparthi
+  Project 3 "In verbinding met onze tribes" · HBO-ICT Open-ICT · Semester 1
+  ============================================================================
+  Deze site hoort bij mijn bewijsstukken in Portflow. Hij doet twee dingen:
+    1. Hij legt uit wat TribeLink is en waarom we het zo gebouwd hebben.
+    2. Hij bevat twee werkende demo's: de pixel-lobby en het profiel in lagen.
+
+  Waarom geen Laravel/React zoals het echte product?
+  Het echte TribeLink draait op Laravel + Inertia + React met een database.
+  Die heb ik niet nodig om de ontwerpkeuzes te laten zien, en een beoordelaar
+  kan hem niet openen zonder server. Deze site is daarom bewust gewone
+  HTML + CSS + JavaScript: dubbelklik op index.html en alles werkt offline.
+
+  Opbouw van dit bestand (zoek op BLOK om te navigeren):
+    BLOK H1  Kop en meta
+    BLOK H2  Skiplink en header met menu
+    BLOK H3  Hero met kerncijfers
+    BLOK H4  Probleem en onderzoek
+    BLOK H5  Persona's
+    BLOK H6  Demo 1: de pixel-lobby
+    BLOK H7  De vier manieren van ontmoeten
+    BLOK H8  Demo 2: profiel in lagen (privacy)
+    BLOK H9  User stories en sprintresultaten
+    BLOK H10 Sprints, feedback en retro
+    BLOK H11 Woordenlijst
+    BLOK H12 Verantwoording en footer
+  ============================================================================
+-->
+  <!-- Deze regel zorgt dat een telefoon de pagina op zijn eigen breedte
+       tekent in plaats van op 980px. Zonder dit werkt mijn mobiele indeling
+       nooit. Dit is de basis van alle responsive werking. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="TribeLink: een digitale en fysieke ontmoetingsplek voor de S1-tribes van Open-ICT. Projectsite met onderzoek, ontwerpkeuzes en twee werkende demo's.">
+  <meta name="color-scheme" content="dark">
+  <title>TribeLink — Project 3 van Harsha Kanaparthi</title>
+  <!-- Geen externe lettertypes of libraries: alles werkt offline en er
+       gaan geen gegevens naar een derde partij. Dat is een privacykeuze. -->
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="img/tribelink.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- BLOK H2 — Skiplink en header ========================================
+     De skiplink staat buiten beeld tot hij focus krijgt. Een
+     toetsenbordgebruiker drukt één keer op Tab en kan dan direct naar de
+     inhoud, zonder alle menu-items langs te gaan. -->
+<a class="skiplink" href="#inhoud">Meteen naar de inhoud</a>
+
+<header class="kop" id="kop">
+  <div class="kop-binnen">
+    <a class="merk" href="#inhoud">
+      <img src="img/tribelink.svg" alt="" width="34" height="34">
+      <!-- Op heel smalle schermen verberg ik deze tekst visueel, maar laat
+           ik hem staan voor een schermlezer. Met display:none zou de link
+           geen naam meer hebben; dat leerde ik in Project 2. -->
+      <span class="merk-tekst">TribeLink</span>
+    </a>
+
+    <button class="menuknop" type="button" aria-expanded="false" aria-controls="hoofdmenu">
+      <span class="menu-streep" aria-hidden="true"></span>
+      <span>Menu</span>
+    </button>
+
+    <nav id="hoofdmenu" aria-label="Hoofdmenu">
+      <ul class="menu">
+        <li><a href="#onderzoek">Onderzoek</a></li>
+        <li><a href="#personas">Persona's</a></li>
+        <li><a href="#lobby">Lobby</a></li>
+        <li><a href="#ontmoeten">Ontmoeten</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#stories">User stories</a></li>
+        <li><a href="#sprints">Sprints</a></li>
+        <li><a href="#woorden">Woordenlijst</a></li>
+      </ul>
+    </nav>
+
+    <button class="leesknop" type="button" aria-describedby="lees-uitleg">
+      <span aria-hidden="true">◐</span><span>Leesmodus</span>
+    </button>
+    <!-- aria-describedby in plaats van aria-label: zo blijft de zichtbare
+         tekst de naam van de knop. Dat voorkomt de axe-melding
+         "label-content-name-mismatch" die ik in Project 1 kreeg. -->
+    <p id="lees-uitleg" class="altijd-verborgen">Vergroot de tekst en de regelafstand voor rustiger lezen.</p>
+  </div>
+</header>
+
+<main id="inhoud">
+
+  <!-- BLOK H3 — Hero ==================================================== -->
+  <section class="hero" aria-labelledby="hero-kop">
+    <div class="wrap">
+      <p class="label">Project 3 · In verbinding met onze tribes</p>
+      <h1 id="hero-kop">Van een verzameling mensen naar een tribe</h1>
+      <p class="lead">
+        TribeLink is een ontmoetingsplek voor de drie S1-tribes van Open-ICT.
+        Je loopt met een poppetje door een lobby, stelt iemand een spelletje voor
+        en leert elkaar daarna echt kennen. Je profiel gaat pas verder open
+        als jullie allebei akkoord zijn.
+      </p>
+      <p class="lead-klein">
+        Squad: Bart, Harsha, Nick, Marvin en Ekrem · Designsprint, Sprint 1 en Sprint 2 ·
+        Expo op 5 november 2026
+      </p>
+
+      <!-- Deze drie cijfers komen uit onze eigen Sprint Review van
+           15 oktober 2026 en uit de repo. Geen schattingen. -->
+      <ul class="kerncijfers">
+        <li><span class="cijfer">10/12</span><span class="cijfer-label">user stories af in Sprint 1</span></li>
+        <li><span class="cijfer">4</span><span class="cijfer-label">manieren om iemand te ontmoeten</span></li>
+        <li><span class="cijfer">6</span><span class="cijfer-label">vragen aan één tribe-lid geïnterviewd</span></li>
+      </ul>
+
+      <div class="knoppenrij">
+        <a class="knop knop-primair" href="#lobby">Loop door de lobby</a>
+        <a class="knop" href="#onderzoek">Lees het onderzoek</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOK H4 — Probleem en onderzoek =================================== -->
+  <section class="sectie" id="onderzoek" aria-labelledby="ond-kop">
+    <div class="wrap">
+      <h2 id="ond-kop">1. Wat we onderzochten</h2>
+      <p>
+        De opdracht vroeg: <em>Hoe kunnen we met een digitale tool het kennismaken
+        en in verbinding blijven binnen onze tribe ondersteunen?</em> Voordat we
+        iets bedachten, hebben we eerst gepraat met mensen uit de tribe.
+      </p>
+
+      <div class="kaarten">
+        <article class="kaart">
+          <h3>Mijn onderzoeksvragen</h3>
+          <ol class="netjes">
+            <li>Wat mis je in de verbinding met andere tribe-leden?</li>
+            <li>Wat maakt een interactie voor jou betekenisvol?</li>
+            <li>Wat houdt je tegen om iemand te benaderen die je niet kent?</li>
+            <li>Wat zou je willen doen om dat aan te pakken?</li>
+            <li>Wat zijn jouw voorwaarden voor een digitale oplossing?</li>
+            <li>Wanneer werkt een product voor jou intuïtief?</li>
+          </ol>
+          <p class="noot">
+            Ik heb deze zes vragen aan Isabel gesteld. Bart sprak Anne-Wil en
+            Reyna, Marvin sprak Thian, Abdallah, Kagan en Joshua.
+          </p>
+        </article>
+
+        <article class="kaart">
+          <h3>Wat Isabel zei</h3>
+          <blockquote>
+            „Ik ben introvert, dus het is al lastig om iemand aan te spreken.
+            Bang voor de reactie.”
+          </blockquote>
+          <p>
+            Op de vraag wat haar tegenhield gaf ze dit antwoord. Op de vraag wat
+            zou helpen zei ze: „De eerste dag met spelletjes hielp wel. Dus iets
+            wat vanzelf connectie bevordert.”
+          </p>
+          <p>
+            Over een digitale oplossing was ze duidelijk: informatie die ze
+            opgeeft mag niet lekken, er mogen geen bugs in zitten en de
+            beveiliging moet goed zijn.
+          </p>
+        </article>
+
+        <article class="kaart">
+          <h3>Wat ik daaruit concludeerde</h3>
+          <p>
+            Drie dingen kwamen terug in de antwoorden en werden keuzes in het
+            product:
+          </p>
+          <ul class="netjes">
+            <li><strong>Een activiteit is de opstap, niet het gesprek.</strong>
+              Isabel noemde spelletjes. Daarom is het spelletje de ingang van
+              een gesprek en niet een extra functie.</li>
+            <li><strong>Contact mag niet van één kant komen.</strong>
+              Daarom kun je iemand ook vinden via een open brief of een poster,
+              zonder dat je zelf het eerste woord hoeft te doen.</li>
+            <li><strong>Privacy is een voorwaarde, geen extraatje.</strong>
+              Daarom is het profiel in lagen opgebouwd.</li>
+          </ul>
+        </article>
+      </div>
+
+      <details class="uitklap">
+        <summary>Waar mijn onderzoek tekortschiet</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            Ik heb één iemand geïnterviewd. De onepager vroeg om minimaal vier
+            mensen met dekking van alle betrokkenen. Als squad hebben we zeven
+            studenten gesproken, maar <strong>geen coach en geen studentmentor</strong>.
+            Die zijn wel betrokkenen volgens de opdracht.
+          </p>
+          <p>
+            Het gevolg zie je terug in de persona's: de coach-persona is
+            gebaseerd op onze eigen aannames over coaches, niet op een gesprek
+            met een coach. Dat staat er eerlijk bij, en het is mijn eerste
+            actiepunt voor de volgende sprint.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H5 — Persona's =============================================== -->
+  <section class="sectie sectie-alt" id="personas" aria-labelledby="per-kop">
+    <div class="wrap">
+      <h2 id="per-kop">2. Voor wie we het maken</h2>
+      <p>
+        Ik heb twee persona's geschreven op basis van het interview met Isabel.
+        Het squad heeft er later drie gemaakt waarin ook de coach zit. Ik laat
+        hier zien welke van mijn aannames terugkwamen en welke niet.
+      </p>
+
+      <div class="kaarten kaarten-twee">
+        <article class="kaart persona">
+          <p class="label">Mijn persona 1</p>
+          <h3>Nathalie, 23 — de sociale verbinder</h3>
+          <dl class="profiellijst">
+            <dt>Wie</dt><dd>Eerstejaars, extravert, maakt makkelijk contact.</dd>
+            <dt>Wil</dt><dd>Met de groep iets doen buiten schooltijd: bowlen, uit eten, lasergamen.</dd>
+            <dt>Loop vast op</dt><dd>Er is geen snelle manier om een datum te prikken voor de hele tribe.</dd>
+            <dt>Heeft nodig</dt><dd>Een activiteit kunnen aanmaken en een datumprikker.</dd>
+          </dl>
+        </article>
+
+        <article class="kaart persona">
+          <p class="label">Mijn persona 2</p>
+          <h3>Kees, 20 — de introverte toeschouwer</h3>
+          <dl class="profiellijst">
+            <dt>Wie</dt><dd>Eerstejaars, introvert, wil contact maar zet de eerste stap niet.</dd>
+            <dt>Wil</dt><dd>Tribe-leden leren kennen buiten de projecten om.</dd>
+            <dt>Loop vast op</dt><dd>De drempel is hoog en hij is bang voor de reactie.</dd>
+            <dt>Heeft nodig</dt><dd>Een activiteit die het gesprek vanzelf op gang brengt, en zekerheid dat zijn gegevens niet uitlekken.</dd>
+          </dl>
+        </article>
+      </div>
+
+      <details class="uitklap">
+        <summary>Wat er met mijn persona's gebeurde</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            In de uiteindelijke set van het squad heten ze Milan (22), Bram (19)
+            en Mark (29). Milan is mijn Nathalie, Bram is mijn Kees. Mark is
+            nieuw: de coach.
+          </p>
+          <p>
+            Wat er veranderde is niet de naam maar de onderbouwing. Bij mijn
+            Kees stond „hij is bang voor de reactie” — dat is één zin uit één
+            interview. Bij Bram staan vier bronnen: Isabel, Joshua, Anne-Wil en
+            Reyna. Dat is steviger, en dat is precies wat ik hiervan leerde.
+          </p>
+          <p>
+            Wat er verdween: mijn Nathalie had een datumprikker nodig. Die functie
+            hebben we niet gebouwd. In plaats daarvan kwamen er events met een
+            aanmeldknop. Dat dekt ongeveer dezelfde behoefte, maar ik heb niet
+            gecontroleerd of Nathalie daar echt mee geholpen is.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H6 — Demo 1: de pixel-lobby ================================== -->
+  <section class="sectie" id="lobby" aria-labelledby="lobby-kop">
+    <div class="wrap">
+      <h2 id="lobby-kop">3. Loop door de lobby</h2>
+      <p>
+        Dit is een werkende demo van de lobby. In het echte TribeLink loopt de
+        positie via de server, zodat je andere spelers echt ziet bewegen. Hier
+        staan de andere poppetjes vast, maar het rondlopen en een spel
+        voorstellen werkt hetzelfde.
+      </p>
+
+      <div class="demo">
+        <div class="demo-uitleg">
+          <h3>Zo bedien je het</h3>
+          <ul class="netjes">
+            <li>Klik op een tegel om erheen te lopen, of gebruik de pijltjestoetsen.</li>
+            <li>Kom naast iemand staan en kies <em>Stel een spel voor</em>.</li>
+            <li>Met de knoppen onder het veld kan het ook zonder muis of toetsenbord-pijltjes.</li>
+          </ul>
+          <p class="noot">
+            Waarom een activiteit en niet een chatknop? Uit het interview bleek
+            dat de drempel zit in het eerste woord. Een spelletje geeft je een
+            reden om iets te zeggen.
+          </p>
+        </div>
+
+        <div class="lobby-houder">
+          <!-- role=application omdat dit een eigen toetsenbordbediening heeft.
+               De instructies staan in aria-describedby zodat een schermlezer
+               ze voorleest zodra je het veld in gaat. -->
+          <div id="lobbyveld" class="lobbyveld" role="application" tabindex="0"
+               aria-labelledby="lobby-kop" aria-describedby="lobby-instructie">
+          </div>
+          <p id="lobby-instructie" class="altijd-verborgen">
+            Veld van 14 bij 9 tegels. Loop met de pijltjestoetsen of met de knoppen
+            eronder. Kom naast een tribe-lid staan en kies Stel een spel voor.
+          </p>
+
+          <div class="lobby-knoppen">
+            <div class="pijltjes" role="group" aria-label="Rondlopen">
+              <button type="button" class="pijl pijl-omhoog" data-stap="omhoog" aria-label="Een tegel omhoog">↑</button>
+              <button type="button" class="pijl" data-stap="links" aria-label="Een tegel naar links">←</button>
+              <button type="button" class="pijl" data-stap="omlaag" aria-label="Een tegel omlaag">↓</button>
+              <button type="button" class="pijl" data-stap="rechts" aria-label="Een tegel naar rechts">→</button>
+            </div>
+            <button type="button" class="knop knop-primair" id="spelknop">Stel een spel voor</button>
+            <button type="button" class="knop" id="herstelknop">Begin opnieuw</button>
+          </div>
+
+          <!-- role=status zorgt dat een schermlezer de melding voorleest
+               zonder dat de focus erheen gaat. -->
+          <p class="lobby-melding" id="lobbymelding" role="status">Je staat bij de ingang. Loop naar iemand toe.</p>
+
+          <div class="lobby-log" aria-labelledby="log-kop">
+            <h4 id="log-kop">Wat er gebeurt</h4>
+            <ol id="lobbylog" class="loglijst"></ol>
+          </div>
+        </div>
+      </div>
+
+      <details class="uitklap">
+        <summary>Waarom een lobby en niet gewoon een ledenlijst</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            Bij de Sprint Review op 15 oktober kregen we deze feedback:
+            <em>„meer focus op het hotel, in plaats van just another website.
+            kracht zit in simpelheid”</em> en <em>„alle functies zoveel mogelijk
+            om het spel heen maken, zodat het echt een unieke feel krijgt.”</em>
+          </p>
+          <p>
+            Dat was een kantelpunt. We hadden een website met een ledenlijst,
+            een chat en een lobby náást elkaar. De feedback zei: de lobby is
+            het product, de rest hoort eromheen. Daarna hebben we de minigames
+            erbij gebouwd en is de lobby de startpagina na het inloggen geworden.
+          </p>
+          <p>
+            Wat ik hier zelf van leerde: ik had de lobby als één van de vier
+            ontmoetingsmanieren gezien. De zaal zag hem als de enige die ons
+            onderscheidt van Teams. Dat verschil had ik zelf niet bedacht.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H7 — De vier manieren ======================================== -->
+  <section class="sectie sectie-alt" id="ontmoeten" aria-labelledby="ont-kop">
+    <div class="wrap">
+      <h2 id="ont-kop">4. Vier manieren om iemand te ontmoeten</h2>
+      <p>
+        Niet iedereen zet dezelfde eerste stap. Daarom zijn er vier ingangen.
+        Filter hieronder op wie er een eerste stap moet zetten.
+      </p>
+
+      <div class="filterbalk" role="group" aria-label="Filter de ontmoetingsmanieren">
+        <button type="button" class="chip" data-filter="alles" aria-pressed="true">Alles</button>
+        <button type="button" class="chip" data-filter="zelf" aria-pressed="false">Ik zet de stap</button>
+        <button type="button" class="chip" data-filter="ander" aria-pressed="false">De ander zet de stap</button>
+      </div>
+      <p class="altijd-verborgen" id="filterstatus" role="status"></p>
+
+      <div class="kaarten" id="manieren">
+        <article class="kaart manier" data-stap="zelf">
+          <p class="label">Manier 1</p>
+          <h3>Random chat</h3>
+          <p>
+            Je wordt gekoppeld aan iemand die online is en die je nog niet kent.
+            Je ziet alleen een gebruikersnaam. Je kunt elk moment weg, en als je
+            elkaar wilt houden klik je op <em>Bewaren</em>.
+          </p>
+          <p class="noot">
+            Verschil met Omegle: als je per ongeluk de pagina ververst, proberen
+            we je weer met dezelfde persoon te verbinden.
+          </p>
+        </article>
+
+        <article class="kaart manier" data-stap="ander">
+          <p class="label">Manier 2</p>
+          <h3>Open brief</h3>
+          <p>
+            Je schrijft een brief en zet die op een openbare lijst. Iemand anders
+            kiest jouw brief en begint een gesprek. Jij hoeft niemand aan te
+            spreken.
+          </p>
+          <p class="noot">
+            Deze story was aan het eind van Sprint 1 niet af. Hij is teruggezet
+            op de backlog omdat de koppeling met de backend ontbrak.
+          </p>
+        </article>
+
+        <article class="kaart manier" data-stap="zelf">
+          <p class="label">Manier 3</p>
+          <h3>Lobby</h3>
+          <p>
+            Je loopt met een poppetje rond. Je ziet wie er is, stelt iemand een
+            spelletje voor en praat ondertussen. Na afloop kun je kiezen of je
+            elkaar wilt bewaren.
+          </p>
+          <p class="noot">
+            Na de feedback van de Sprint Review is dit het hart van het product
+            geworden.
+          </p>
+        </article>
+
+        <article class="kaart manier" data-stap="ander">
+          <p class="label">Manier 4</p>
+          <h3>Poster met QR-code</h3>
+          <p>
+            Je schrijft een kort bericht, het systeem maakt een PDF met een
+            QR-code. Die hang je op. Wie scant, komt op jouw landingspagina en
+            kan je een bericht sturen.
+          </p>
+          <p class="noot">
+            Bij de review vroeg iemand waarom de poster. Mijn antwoord: iemand
+            uit een ándere tribe toevoegen gaat zo makkelijker dan een
+            gebruikersnaam opzoeken.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLOK H8 — Demo 2: profiel in lagen ================================ -->
+  <section class="sectie" id="privacy" aria-labelledby="priv-kop">
+    <div class="wrap">
+      <h2 id="priv-kop">5. Je profiel gaat in lagen open</h2>
+      <p>
+        Dit is de tweede werkende demo, en het is mijn belangrijkste
+        ontwerpkeuze. Je begint met alleen een gebruikersnaam. Meer gaat pas
+        open als jullie allebei een stap zetten.
+      </p>
+
+      <div class="demo demo-privacy">
+        <div class="demo-uitleg">
+          <h3>Waarom in lagen</h3>
+          <p>
+            Isabel zei dat informatie die ze opgeeft niet mag lekken. Bart zei
+            in zijn interview dat hij een naam wil hebben waarmee hij iemand in
+            het echt kan vinden, maar pas nadat ze allebei akkoord zijn.
+          </p>
+          <p>
+            Die twee wensen lijken tegen elkaar in: weinig delen versus elkaar
+            kunnen vinden. De oplossing is niet minder delen, maar
+            <strong>later</strong> delen, en alleen als het van twee kanten komt.
+          </p>
+          <ol class="netjes">
+            <li><strong>Laag 1:</strong> gebruikersnaam en poppetje.</li>
+            <li><strong>Laag 2:</strong> na een ontmoeting in het echt, met een code die jullie allebei invoeren.</li>
+            <li><strong>Laag 3:</strong> echte naam en contactgegevens, pas als jullie allebei alles hebben vrijgegeven.</li>
+          </ol>
+        </div>
+
+        <div class="privacy-houder">
+          <div class="privacy-knoppen">
+            <button type="button" class="knop" id="ontmoetknop">Ontmoet elkaar in het echt</button>
+            <button type="button" class="knop" id="deelknop" disabled>Geef mijn volgende laag vrij</button>
+            <button type="button" class="knop" id="privacyreset">Begin opnieuw</button>
+          </div>
+
+          <p class="privacy-melding" id="privacymelding" role="status">
+            Laag 1. Bart ziet alleen jouw gebruikersnaam en je poppetje.
+          </p>
+
+          <div class="profielkaart" id="profielkaart">
+            <div class="profielkop">
+              <span class="avatar" aria-hidden="true">HK</span>
+              <div>
+                <p class="profielnaam" id="profielnaam">harsha_k</p>
+                <p class="profielsub" id="profielsub">Tribe · poppetje aangemaakt</p>
+              </div>
+            </div>
+            <ul class="profielvelden" id="profielvelden"></ul>
+          </div>
+
+          <p class="noot">
+            Let op: dit is een demo van de zichtbaarheidslogica. Er wordt niets
+            opgeslagen en er gaat niets naar een server.
+          </p>
+        </div>
+      </div>
+
+      <details class="uitklap">
+        <summary>Wat deze keuze kost</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            Deze keuze maakt het product ingewikkelder om te bouwen én om uit te
+            leggen. Een gewone ledenlijst was in een dag klaar. Het
+            vrijgeven per laag kostte ons een aparte tabel voor vriendschappen,
+            een code die maar kort geldig is, en een scherm waarop je per onderdeel
+            kiest wat je deelt.
+          </p>
+          <p>
+            Het kost ook iets aan de werking: iemand die snel contact wil, moet
+            nu eerst iemand in het echt ontmoeten. Voor Nathalie, mijn sociale
+            verbinder, is dat een drempel die ze niet nodig heeft. Dat is een
+            echte afweging die we bewust zo gemaakt hebben: we kozen voor de
+            introverte gebruiker, omdat die anders helemaal niet meedoet.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H9 — User stories en sprintresultaten ======================== -->
+  <section class="sectie sectie-alt" id="stories" aria-labelledby="st-kop">
+    <div class="wrap">
+      <h2 id="st-kop">6. User stories en wat er echt af kwam</h2>
+      <p>
+        Deze tabel laat de stories van Sprint 1 zien zoals we ze bij de review
+        op 15 oktober hebben verantwoord: tien af, twee teruggezet.
+        Zoek of sorteer om iets terug te vinden.
+      </p>
+
+      <div class="tabelknoppen">
+        <div class="veld">
+          <label for="zoek">Zoek in de stories</label>
+          <input type="search" id="zoek" placeholder="bijvoorbeeld poster, lobby of backend" autocomplete="off">
+        </div>
+        <div class="veld">
+          <label for="sortering">Sorteer op</label>
+          <select id="sortering">
+            <option value="volgorde">Sprintvolgorde</option>
+            <option value="naam">Naam (A–Z)</option>
+            <option value="status">Status</option>
+          </select>
+        </div>
+      </div>
+      <p class="telregel" id="storytel" role="status"></p>
+
+      <!-- Een brede tabel mag horizontaal scrollen binnen zijn eigen regio.
+           tabindex=0 maakt die regio bereikbaar met het toetsenbord, zodat je
+           met de pijltjes kunt scrollen. De pagina zelf scrollt niet. -->
+      <div class="tabelwrap" tabindex="0" role="region"
+           aria-label="Tabel met user stories van Sprint 1, horizontaal scrollbaar">
+        <table class="tabel-data">
+          <caption>User stories van Sprint 1, met de stand bij de review op 15 oktober 2026.</caption>
+          <thead>
+            <tr>
+              <th scope="col">Nr.</th>
+              <th scope="col">User story</th>
+              <th scope="col">Wie</th>
+              <th scope="col">Stand</th>
+              <th scope="col">Toelichting</th>
+            </tr>
+          </thead>
+          <tbody id="storyrijen"></tbody>
+        </table>
+      </div>
+
+      <details class="uitklap">
+        <summary>Waarom twee stories niet af waren</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            <strong>Ontmoeten: Open brief</strong> en <strong>Feed Pagina</strong>
+            hadden allebei een werkende voorkant, maar de koppeling met de
+            backend was niet klaar. We hebben ze teruggezet op de product
+            backlog in plaats van ze half af op te leveren.
+          </p>
+          <p>
+            In de retro van 5 november heb ik daar deze les uit getrokken:
+            <em>„Een user story is pas af als frontend en backend af zijn.”</em>
+            Dat klinkt vanzelfsprekend, maar we hadden de taken per laag
+            verdeeld: ik deed de voorkant, Marvin en Bart de achterkant. Daardoor
+            kon mijn helft „af” zijn terwijl de story dat niet was.
+          </p>
+          <p>
+            Wat we daarna anders deden: een story krijgt één eigenaar die
+            verantwoordelijk is voor beide helften, en de taak gaat pas naar
+            Done als de koppeling werkt.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H10 — Sprints, feedback en retro ============================= -->
+  <section class="sectie" id="sprints" aria-labelledby="sp-kop">
+    <div class="wrap">
+      <h2 id="sp-kop">7. Drie sprints en wat ik ervan leerde</h2>
+
+      <ol class="tijdlijn">
+        <li>
+          <h3>Designsprint — onderzoeken en twee ideeën</h3>
+          <p>
+            Interviews, persona's, brainstorm met post-its en twee papieren
+            prototypes. Nog niet kiezen. De keuze kwam pas na de pitches.
+          </p>
+        </li>
+        <li>
+          <h3>Sprint 1 — review op 15 oktober 2026</h3>
+          <p>
+            Sprintdoel: <em>„Gebruikers kunnen een eigen profiel aanmaken en
+            contact met elkaar leggen.”</em> Dat doel is behaald. Tien van de
+            twaalf stories werden afgerond.
+          </p>
+          <p>
+            De feedback ging niet over wat er niet werkte, maar over waar het
+            hart van het product zit. Zes punten, waarvan deze twee mijn werk
+            veranderden: meer focus op het hotel, en alle functies om het spel
+            heen bouwen.
+          </p>
+        </li>
+        <li>
+          <h3>Sprint 2 — Expo en retro op 5 november 2026</h3>
+          <p>
+            De planning voor deze sprint kwam rechtstreeks uit de review:
+            afmaken wat bleef liggen, feed en agenda, elkaar leren kennen,
+            samen spelen. Op de Expo lieten we de lobby met minigames zien.
+          </p>
+          <p>
+            In de retro zei ik vier dingen die ik geleerd had, waaronder dat
+            backendtaken bleven liggen terwijl de frontend klaar was. Bart zei
+            dat hij liever werkt met minder AI-gegenereerde code. Dat is
+            feedback waar ik iets mee moest.
+          </p>
+        </li>
+      </ol>
+
+      <details class="uitklap">
+        <summary>De zes feedbackpunten van de Sprint Review, letterlijk</summary>
+        <div class="uitklap-inhoud">
+          <div class="tabelwrap" tabindex="0" role="region"
+               aria-label="Tabel met de zes feedbackpunten van de Sprint Review, horizontaal scrollbaar">
+            <table class="tabel-data tabel-smal">
+              <thead>
+                <tr><th scope="col">Nr.</th><th scope="col">Feedback</th><th scope="col">Wat ik ermee deed</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>F1</td><td>we presenteren meer naar het bord dan aan de zaal</td><td>Bij de Expo bewust naar de zaal gekeerd staan en de zaal aangekeken bij mijn onderdeel.</td></tr>
+                <tr><td>F2</td><td>leuk product, maar focus meer op het sociale aspect zodat ze echt kunnen verbinden. Habbo hotel is super leuk</td><td>De lobby is de startpagina na inloggen geworden in plaats van een dashboard.</td></tr>
+                <tr><td>F3</td><td>meer focus op het hotel, in plaats van just another website. kracht zit in simpelheid</td><td>Minigames in de lobby erbij; het dashboard is kleiner geworden.</td></tr>
+                <tr><td>F4</td><td>waarom is het de poster? — Harsha: om mensen uit een andere tribe toe te voegen, is makkelijker dan username</td><td>Dit was mijn antwoord op een vraag. De poster is gebleven, met een landingspagina voor wie nog geen account heeft.</td></tr>
+                <tr><td>F5</td><td>alle functies zoveel mogelijk om het spel heen maken, zodat het echt een unieke feel krijgt.</td><td>Uitnodigingen voor een spel lopen nu via de lobby, niet via een aparte lijst.</td></tr>
+                <tr><td>F6</td><td>eerder focus leggen op punten 3 en 4 ipv 1</td><td>De volgorde van de sprintplanning is omgedraaid: eerst samen spelen, dan de feed.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="noot">
+            F6 is een advies over prioriteit, niet over een functie. Ik heb het
+            zo gelezen dat punt 3 en 4 uit ons eigen plan (elkaar leren kennen,
+            samen spelen) boven punt 1 (afmaken wat bleef liggen) kwamen.
+          </p>
+        </div>
+      </details>
+
+      <details class="uitklap">
+        <summary>Wat ik zelf in de retro naar voren bracht</summary>
+        <div class="uitklap-inhoud">
+          <p>Deze punten staan onder mijn naam in de retro van 5 november 2026.</p>
+          <div class="kaarten kaarten-twee">
+            <div class="kaart">
+              <h4>Wat goed ging</h4>
+              <ul class="netjes">
+                <li>Onze expo-presentatie had een duidelijk verhaal.</li>
+                <li>Frontend en backend waren goed verdeeld.</li>
+                <li>De pixel-lobby maakte TribeLink herkenbaar.</li>
+                <li>Alleen HU-mailadressen kunnen registreren.</li>
+              </ul>
+            </div>
+            <div class="kaart">
+              <h4>Wat beter kan</h4>
+              <ul class="netjes">
+                <li>Een user story is pas af als frontend en backend af zijn.</li>
+                <li>Sommige taken hadden te lang geen eigenaar.</li>
+                <li>Eerder testen en reviewen.</li>
+                <li>Taken bleven te lang in review staan.</li>
+                <li>Reviews sneller afronden.</li>
+              </ul>
+            </div>
+          </div>
+          <p>
+            Wat ik hier zelf van vind: „frontend en backend waren goed verdeeld”
+            en „een user story is pas af als frontend en backend af zijn” staan
+            in dezelfde retro onder mijn naam. Dat is geen tegenspraak maar een
+            les: de verdeling was fijn om te werken, en slecht om af te ronden.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- BLOK H11 — Woordenlijst =========================================== -->
+  <section class="sectie sectie-alt" id="woorden" aria-labelledby="w-kop">
+    <div class="wrap">
+      <h2 id="w-kop">8. Woordenlijst</h2>
+      <p>
+        Bij de review van Project 2 kreeg ik de feedback dat ik onbekende termen
+        gebruikte zonder uitleg. Daarom leg ik hier de termen uit die in dit
+        project voorkomen.
+      </p>
+      <div class="veld veld-breed">
+        <label for="termzoek">Zoek een term</label>
+        <input type="search" id="termzoek" placeholder="bijvoorbeeld Inertia, MoSCoW of MVC" autocomplete="off">
+      </div>
+      <p class="telregel" id="termtel" role="status"></p>
+      <ul class="termenlijst" id="termenlijst"></ul>
+    </div>
+  </section>
+
+  <!-- BLOK H12 — Verantwoording ========================================= -->
+  <section class="sectie" id="verantwoording" aria-labelledby="ver-kop">
+    <div class="wrap">
+      <h2 id="ver-kop">9. Wat deze site wel en niet is</h2>
+      <div class="kaarten kaarten-twee">
+        <article class="kaart">
+          <h3>Wat het wel is</h3>
+          <ul class="netjes">
+            <li>Een uitleg van het product en mijn ontwerpkeuzes, met de bron erbij.</li>
+            <li>Twee werkende demo's van de lobby en de zichtbaarheidslogica.</li>
+            <li>Een eerlijke stand van wat af is en wat niet.</li>
+          </ul>
+        </article>
+        <article class="kaart">
+          <h3>Wat het niet is</h3>
+          <ul class="netjes">
+            <li>Het echte TribeLink. Dat is Laravel + Inertia + React met een database en staat in de repo van Marvin.</li>
+            <li>Een werkende chat of login. Daar is een server voor nodig.</li>
+            <li>Een meting van hoeveel studenten elkaar via TribeLink hebben leren kennen. Die meting hebben we niet gedaan.</li>
+          </ul>
+        </article>
+      </div>
+
+      <details class="uitklap">
+        <summary>AI-gebruik bij deze site</summary>
+        <div class="uitklap-inhoud">
+          <p>
+            Ik heb een AI-assistent gebruikt voor het opzetten van de HTML, CSS
+            en JavaScript van deze projectsite en voor het redigeren van tekst.
+            Ik kan elke regel uitleggen en aanpassen.
+          </p>
+          <p>
+            Bij het echte TribeLink ligt dat gevoeliger. In de retro zei Marvin
+            dat we bewuster moeten zijn van ons eigen codeschrijven en niet
+            altijd afhankelijk moeten zijn van AI, en Bart zei dat hij liever
+            werkt met minder AI-gegenereerde code. Dat is feedback op ons
+            gezamenlijke werk, en ik hoor daar ook bij.
+          </p>
+          <p>
+            Mijn afspraak met mezelf voor de volgende sprint: bij elke functie
+            die ik met hulp van AI maak, schrijf ik eerst zelf in gewone taal
+            op wat de functie moet doen en welke invoer en uitvoer er zijn.
+            Daarna pas genereer ik iets, en dan loop ik het regel voor regel na.
+          </p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+</main>
+
+<footer class="voet">
+  <div class="wrap">
+    <p><strong>TribeLink</strong> · Project 3 van Harsha Vardhan Kanaparthi</p>
+    <p>HBO-ICT Open-ICT · Hogeschool Utrecht · Semester 1 · 2026</p>
+    <p class="noot">
+      Squad: Bart, Harsha, Nick, Marvin en Ekrem. Deze projectsite werkt offline;
+      er worden geen gegevens verstuurd en er is geen externe library geladen.
+    </p>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
